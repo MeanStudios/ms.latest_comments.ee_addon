@@ -2,25 +2,26 @@ Greetings,
 
 Latest Comments is an ExpressionEngine plug-in and pulls the entries with at least one comment from the specified channel(s) and sorts by latest comment.
 
-  *Required Parameters*
+h3. Required Parameters
 
-    * weblog - Which weblogs it should pull the entries from.
-    ** weblog="blog|blog2|blog3"
+* weblog - Which weblogs it should pull the entries from.
+** weblog="blog|blog2|blog3"
 
-  *Optional Parameters*
+h3. Optional Parameters
 
-    * limit - How many entries it should pull. It defaults to 20 if blank.
-    ** limit = "15"
-    * sort - How you want the entries to sort. It defaults to Descending if left blank.
-    ** sort = "asc"
+* limit - How many entries it should pull. It defaults to 20 if blank.
+** limit="15"
+* sort - How you want the entries to sort. It defaults to Descending if left blank.
+** sort="asc"
 
-  *Variables*
+h3. Variables
 
-  * {title} - Title of entry
-  * {author} - Author of latest comment on the entry.
-  * {time_passed} - The time since the latest comment on the entry.  It will look something like 1 week 2 days 4 hours 30 seconds ago.
+* {title} - Title of entry
+* {url_title} - URL Title of entry
+* {author} - Author of latest comment on the entry.
+* {time_passed} - The time since the latest comment on the entry.  It will look something like 1 week 2 days 4 hours 30 seconds ago. 
 
-  *Usage Example*
+h3. Usage Example
 
 <pre>
   {exp:latest_comments weblog="blog"}
