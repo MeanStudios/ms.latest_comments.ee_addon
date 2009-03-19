@@ -19,13 +19,15 @@ h3. Variables
 * {title} - Title of entry
 * {url_title} - URL Title of entry
 * {author} - Author of latest comment on the entry.
-* {time_passed} - The time since the latest comment on the entry.  It will look something like 1 week 2 days 4 hours 30 seconds ago. 
+* {time_passed} - The time since the latest comment on the entry.  It will look something like 1 week 2 days 4 hours 30 seconds ago.
+* {comment_url_title_auto_path} - If you have the Comment Page URL option set in your Weblog Preferences Path Settings this will print out the URL to the comment page.
+* {comment_id} - This is the ID of your comment for use along with anchor tags.
 
 h3. Usage Example
 
 <pre>
   {exp:latest_comments weblog="blog"}
-  <p>{time_passed} ago<br />{author} commented on <a href="{site_url}/blog{url_title}/">{title}</a></p>
+  <p>{time_passed} ago<br />{author} commented on <a href="{comment_url_title_auto_path}#{comment_id}">{title}</a></p>
   {/exp:latest_comments}
 </pre>
 

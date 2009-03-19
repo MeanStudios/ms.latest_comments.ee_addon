@@ -21,7 +21,7 @@
 
 $plugin_info = array(
 						'pi_name'			=> 'Latest Comments',
-						'pi_version'		=> '1.0.0',
+						'pi_version'		=> '1.0.1',
 						'pi_author'			=> 'Cody Lundquist',
 						'pi_author_url'		=> 'http://meanstudios.com/',
 						'pi_description'	=> 'Pulls the entries with at least one comment from the specified channel(s) and sorts by latest comment.',
@@ -50,8 +50,8 @@ class Latest_comments {
         $sort = ( ! $TMPL->fetch_param('sort')) ? 'DESC' : $TMPL->fetch_param('sort');
 
         /* Do some SQL Magic */
-        $sql = "SELECT a.comment_date, a.name, b.title, b.url_title, c.comment_url
-				FROM exp_comments AS a, exp_weblog_titles AS b
+        $sql = "SELECT a.comment_date, a.name, a.comment_id, b.title, b.url_title, c.comment_url
+				FROM exp_comments a, exp_weblog_titles b, exp_weblogs c
 				WHERE ";
         if ($weblog = $TMPL->fetch_param('weblog'))
         {
@@ -93,7 +93,7 @@ class Latest_comments {
         }
 
         $sql .= "AND a.comment_date = b.recent_comment_date
-                 AND a.weblog_id = c.weblog_id 
+                 AND a.weblog_id = c.weblog_id
 				 ORDER BY a.comment_date $sort
 				 LIMIT $limit";
 
@@ -108,12 +108,14 @@ class Latest_comments {
 										   LD.'time_passed'.RD,
                                            LD.'title'.RD,
 										   LD.'url_title'.RD,
-                                           LD.'comment_url_title_auto_path'.RD),
+										   LD.'comment_url_title_auto_path'.RD,
+										   LD.'comment_id'.RD),
                                      array($row['name'],
                                            ($this->_duration($LOC->now - $row['comment_date'])),
                                            $row['title'],
 										   $row['url_title'],
-                                           $row['comment_url']), $tagdata);
+										   $row['comment_url'].$row['url_title'].'/',
+										   $row['comment_id']), $tagdata);
                 $retdata .= $temp;
             }
         }
@@ -165,12 +167,15 @@ ob_start();
 
   :: Variables ::
   {title} - Title of entry
+  {url_title} - The URL Title of entry
   {author} - Author of latest comment on the entry.
-  {time_passed} - The time since the latest comment on the entry.  It will look something like 1 week 2 days 4 hours 30 seconds ago.
+  {time_passed} - The time since the latest comment on the entry.  It will look something like 1 week 2 days 4 hours 30 seconds.
+  {comment_url_title_auto_path} - If you have the Comment Page URL option set in your Weblog Preferences Path Settings this will print out the URL to the comment page.
+  {comment_id} - This is the ID of your comment for use along with anchor tags.
 
   :: Usage Example::
   {exp:latest_comments weblog="blog"}
-  <p>{time_passed} ago<br />{author} commented on <a href="{site_url}/blog{url_title}/">{title}</a></p>
+  <p>{time_passed} ago<br />{author} commented on <a href="{comment_url_title_auto_path}#{comment_id}">{title}</a></p>
   {/exp:latest_comments}
 
 <?php
