@@ -50,7 +50,7 @@ class Latest_comments {
         $sort = ( ! $TMPL->fetch_param('sort')) ? 'DESC' : $TMPL->fetch_param('sort');
 
         /* Do some SQL Magic */
-        $sql = "SELECT a.comment_date, a.name, b.title, b.url_title
+        $sql = "SELECT a.comment_date, a.name, b.title, b.url_title, c.comment_url
 				FROM exp_comments AS a, exp_weblog_titles AS b
 				WHERE ";
         if ($weblog = $TMPL->fetch_param('weblog'))
@@ -93,6 +93,7 @@ class Latest_comments {
         }
 
         $sql .= "AND a.comment_date = b.recent_comment_date
+                 AND a.weblog_id = c.weblog_id 
 				 ORDER BY a.comment_date $sort
 				 LIMIT $limit";
 
@@ -106,11 +107,13 @@ class Latest_comments {
                 $temp = str_replace( array(LD.'author'.RD,
 										   LD.'time_passed'.RD,
                                            LD.'title'.RD,
-										   LD.'url_title'.RD),
+										   LD.'url_title'.RD,
+                                           LD.'comment_url_title_auto_path'.RD),
                                      array($row['name'],
                                            ($this->_duration($LOC->now - $row['comment_date'])),
                                            $row['title'],
-										   $row['url_title']), $tagdata);
+										   $row['url_title'],
+                                           $row['comment_url']), $tagdata);
                 $retdata .= $temp;
             }
         }
