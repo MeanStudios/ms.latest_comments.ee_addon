@@ -21,7 +21,7 @@
 
 $plugin_info = array(
 						'pi_name'			=> 'Latest Comments',
-						'pi_version'		=> '1.0.1',
+						'pi_version'		=> '1.0.2',
 						'pi_author'			=> 'Cody Lundquist',
 						'pi_author_url'		=> 'http://meanstudios.com/',
 						'pi_description'	=> 'Pulls the entries with at least one comment from the specified channel(s) and sorts by latest comment.',
