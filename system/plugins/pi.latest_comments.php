@@ -175,7 +175,7 @@ ob_start();
 
   :: Usage Example::
   {exp:latest_comments weblog="blog"}
-  <p>{time_passed} ago<br />{author} commented on <a href="{comment_url_title_auto_path}#{comment_id}">{title}</a></p>
+  <p>{time_passed} ago<br />{author} commented on <a href="{comment_url_title_auto_path}#{comment_id}">{title}</a></p> 
   {/exp:latest_comments}
 
 <?php

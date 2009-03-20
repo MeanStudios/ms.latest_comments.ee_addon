@@ -16,7 +16,7 @@ h3. Optional Parameters
 
 h3. Variables
 
-* {title} - Title of entry
+* {title} - Title of entry 
 * {url_title} - URL Title of entry
 * {author} - Author of latest comment on the entry.
 * {time_passed} - The time since the latest comment on the entry.  It will look something like 1 week 2 days 4 hours 30 seconds ago.
